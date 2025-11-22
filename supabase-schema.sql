@@ -1,7 +1,7 @@
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- Create tables for flight arbitrage app
+-- Create tables for Gremlin Flights app
 
 -- Saved searches table
 CREATE TABLE IF NOT EXISTS saved_searches (

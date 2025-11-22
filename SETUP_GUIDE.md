@@ -1,6 +1,6 @@
-# Flight Arbitrage Engine - Complete Setup Guide
+# Gremlin Flights - Complete Setup Guide
 
-This guide will walk you through setting up the Flight Arbitrage Engine from scratch.
+This guide will walk you through setting up Gremlin Flights from scratch.
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ This will install all required packages including:
 2. Click "Start your project" and sign in
 3. Click "New Project"
 4. Fill in:
-   - Project name: `flight-arbitrage` (or your preferred name)
+   - Project name: `gremlin-flights` (or your preferred name)
    - Database password: Choose a strong password and save it
    - Region: Choose closest to your users
    - Pricing plan: Free (sufficient for development)
@@ -81,7 +81,7 @@ Amadeus offers a free test environment with comprehensive flight data.
 4. Go to "My Self-Service Workspace"
 5. Click "Create new app"
 6. Fill in:
-   - Application name: `Flight Arbitrage Engine`
+   - Application name: `Gremlin Flights`
    - Application type: Choose your use case
 7. Click "Create"
 8. You'll receive:
@@ -174,7 +174,7 @@ The application will start at [http://localhost:3000](http://localhost:3000)
 
 2. Create a GitHub repository and push:
    ```bash
-   git remote add origin https://github.com/yourusername/flight-arbitrage.git
+   git remote add origin https://github.com/yourusername/gremlin-flights.git
    git branch -M main
    git push -u origin main
    ```

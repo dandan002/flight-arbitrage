@@ -1,4 +1,4 @@
-# Flight Arbitrage Engine ✈️
+# Gremlin Flights ✈️
 
 A Next.js web application that helps users find the **cheapest possible airline fares** by searching flight APIs and discovering creative routing options. Book flights for 30-50% less by leveraging strategic hub cities and direct airline booking.
 
@@ -28,7 +28,7 @@ A Next.js web application that helps users find the **cheapest possible airline 
 ### 1. Install
 ```bash
 git clone <your-repo-url>
-cd flight-arbitrage
+cd gremlin-flights
 npm install
 ```
 
@@ -136,7 +136,7 @@ https://www.aa.com/booking/find-flights?
 ## 🗂️ Project Structure
 
 ```
-flight-arbitrage/
+gremlin-flights/
 ├── app/                          # Next.js App Router
 │   ├── api/flights/search/       # Flight search API
 │   ├── auth/                     # Login/signup pages

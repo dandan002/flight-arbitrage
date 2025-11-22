@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Get your Flight Arbitrage Engine running in 5 minutes!
+Get your Gremlin Flights running in 5 minutes!
 
 ## Prerequisites
 

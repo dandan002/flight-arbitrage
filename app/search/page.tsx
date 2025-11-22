@@ -78,7 +78,7 @@ export default function SearchPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold text-gray-900">
-              Flight Arbitrage Engine
+              Gremlin Flights
             </h1>
             <button
               onClick={handleLogout}
@@ -134,7 +134,7 @@ export default function SearchPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-gray-600 text-sm">
             <p className="mb-2">
-              Flight Arbitrage Engine - Find the cheapest flights with creative routing
+              Gremlin Flights - Find the cheapest flights with creative routing
             </p>
             <p className="text-xs text-gray-500">
               Powered by Amadeus API | Book directly with airlines

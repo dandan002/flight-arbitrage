@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Flight Arbitrage Engine now includes **intelligent airport autocomplete** with support for city-wide airport codes, making it easier to search for flights across multiple airports in major cities.
+Gremlin Flights now includes **intelligent airport autocomplete** with support for city-wide airport codes, making it easier to search for flights across multiple airports in major cities.
 
 ## Features
 
