@@ -1,11 +1,14 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Image from 'next/image';
+import { Clock } from 'lucide-react';
 import { SearchForm } from '@/components/search/SearchForm';
 import { FlightResults } from '@/components/search/FlightResults';
+import { RecentSearches } from '@/components/search/RecentSearches';
 import { SearchParams, FlightRoute, CreativeRoutingOption } from '@/types';
 import { createClient } from '@/lib/supabase/client';
 
@@ -21,13 +24,46 @@ export default function SearchPage() {
     };
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [prefillParams, setPrefillParams] = useState<SearchParams | null>(null);
+  const [showRecentSearches, setShowRecentSearches] = useState(true);
   const router = useRouter();
   const supabase = createClient();
+
+  // Check for prefilled search from history
+  useEffect(() => {
+    const prefillData = sessionStorage.getItem('prefillSearch');
+    if (prefillData) {
+      try {
+        const params = JSON.parse(prefillData);
+        setPrefillParams(params);
+        sessionStorage.removeItem('prefillSearch');
+      } catch (error) {
+        console.error('Error parsing prefill data:', error);
+      }
+    }
+  }, []);
+
+  const handleSelectRoute = (origin: string, destination: string) => {
+    setPrefillParams({
+      origin,
+      destination,
+      departureDate: '',
+      returnDate: '',
+      adults: 1,
+      children: 0,
+      infants: 0,
+      cabinClass: 'economy',
+      maxLayovers: 2,
+      includeCreativeRouting: true,
+    });
+    setShowRecentSearches(false);
+  };
 
   const handleSearch = async (params: SearchParams) => {
     setLoading(true);
     setError(null);
     setResults(null);
+    setShowRecentSearches(false);
 
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -84,12 +120,21 @@ export default function SearchPage() {
                 Gremlin Flights
               </h1>
             </div>
-            <button
-              onClick={handleLogout}
-              className="text-sm text-gray-600 hover:text-gray-900"
-            >
-              Logout
-            </button>
+            <div className="flex items-center gap-4">
+              <Link
+                href="/history"
+                className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
+              >
+                <Clock className="w-4 h-4" />
+                History
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="text-sm text-gray-600 hover:text-gray-900"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -104,7 +149,17 @@ export default function SearchPage() {
           </p>
         </div>
 
-        <SearchForm onSearch={handleSearch} loading={loading} />
+        {showRecentSearches && !results && (
+          <div className="mb-6">
+            <RecentSearches onSelectRoute={handleSelectRoute} />
+          </div>
+        )}
+
+        <SearchForm
+          onSearch={handleSearch}
+          loading={loading}
+          initialValues={prefillParams || undefined}
+        />
 
         {loading && (
           <div className="mt-8 text-center py-12 bg-white rounded-lg shadow-md">

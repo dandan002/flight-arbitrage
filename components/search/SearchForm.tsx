@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { AirportAutocomplete } from '@/components/ui/airport-autocomplete';
 import { SearchParams } from '@/types';
@@ -8,9 +8,10 @@ import { SearchParams } from '@/types';
 interface SearchFormProps {
   onSearch: (params: SearchParams) => void;
   loading?: boolean;
+  initialValues?: Partial<SearchParams>;
 }
 
-export function SearchForm({ onSearch, loading = false }: SearchFormProps) {
+export function SearchForm({ onSearch, loading = false, initialValues }: SearchFormProps) {
   const [formData, setFormData] = useState<SearchParams>({
     origin: '',
     destination: '',
@@ -22,7 +23,18 @@ export function SearchForm({ onSearch, loading = false }: SearchFormProps) {
     cabinClass: 'economy',
     maxLayovers: 2,
     includeCreativeRouting: true,
+    ...initialValues,
   });
+
+  // Update form when initialValues change
+  useEffect(() => {
+    if (initialValues) {
+      setFormData(prev => ({
+        ...prev,
+        ...initialValues,
+      }));
+    }
+  }, [initialValues]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
