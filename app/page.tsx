@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Plane, DollarSign, Search, TrendingDown } from 'lucide-react';
 
 export default function Home() {
@@ -7,9 +8,12 @@ export default function Home() {
       <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900">
-              Gremlin Flights
-            </h1>
+            <div className="flex items-center gap-3">
+              <Image src="/gremlin-logo.png" alt="Gremlin Flights Logo" width={48} height={48} className="w-12 h-12" />
+              <h1 className="text-2xl font-bold text-gray-900">
+                Gremlin Flights
+              </h1>
+            </div>
             <div className="space-x-4">
               <Link
                 href="/auth/login"

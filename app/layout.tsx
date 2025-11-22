@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Gremlin Flights",
   description: "Find the cheapest flights with creative routing",
+  icons: {
+    icon: "/gremlin-logo.png",
+  },
 };
 
 export default function RootLayout({
