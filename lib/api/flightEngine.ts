@@ -1,5 +1,6 @@
 import { AmadeusAPI } from './amadeus';
 import { FlightRoute, SearchParams, CreativeRoutingOption } from '@/types';
+import { expandCityCode } from '@/lib/data/airports';
 
 export class FlightSearchEngine {
   private amadeusAPI: AmadeusAPI;
@@ -10,6 +11,26 @@ export class FlightSearchEngine {
 
   async searchAllAPIs(params: SearchParams): Promise<FlightRoute[]> {
     try {
+      // Handle city codes by expanding them to all airports
+      const origins = expandCityCode(params.origin);
+      const destinations = expandCityCode(params.destination);
+
+      // If either is a city code, search all combinations
+      if (origins.length > 1 || destinations.length > 1) {
+        const allFlights: FlightRoute[] = [];
+
+        for (const origin of origins) {
+          for (const destination of destinations) {
+            const cityParams = { ...params, origin, destination };
+            const flights = await this.amadeusAPI.searchFlights(cityParams);
+            allFlights.push(...flights);
+          }
+        }
+
+        return this.deduplicateAndSort(allFlights);
+      }
+
+      // Single airport to airport search
       const flights = await this.amadeusAPI.searchFlights(params);
       return this.deduplicateAndSort(flights);
     } catch (error) {

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { AirportAutocomplete } from '@/components/ui/airport-autocomplete';
 import { SearchParams } from '@/types';
 
 interface SearchFormProps {
@@ -54,39 +55,23 @@ export function SearchForm({ onSearch, loading = false }: SearchFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow-md">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="origin" className="block text-sm font-medium text-gray-700 mb-1">
-            From (Airport Code)
-          </label>
-          <input
-            type="text"
-            id="origin"
-            name="origin"
-            value={formData.origin}
-            onChange={handleChange}
-            placeholder="e.g., PVG"
-            required
-            maxLength={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase"
-          />
-        </div>
+        <AirportAutocomplete
+          value={formData.origin}
+          onChange={(value) => setFormData(prev => ({ ...prev, origin: value }))}
+          label="From"
+          placeholder="JFK, NYC, New York..."
+          id="origin"
+          required
+        />
 
-        <div>
-          <label htmlFor="destination" className="block text-sm font-medium text-gray-700 mb-1">
-            To (Airport Code)
-          </label>
-          <input
-            type="text"
-            id="destination"
-            name="destination"
-            value={formData.destination}
-            onChange={handleChange}
-            placeholder="e.g., HND"
-            required
-            maxLength={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase"
-          />
-        </div>
+        <AirportAutocomplete
+          value={formData.destination}
+          onChange={(value) => setFormData(prev => ({ ...prev, destination: value }))}
+          label="To"
+          placeholder="HND, TYO, Tokyo..."
+          id="destination"
+          required
+        />
 
         <div>
           <label htmlFor="departureDate" className="block text-sm font-medium text-gray-700 mb-1">
